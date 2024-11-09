@@ -5,7 +5,9 @@ inputs:
     description: 'workflow file to use'
     required: true   
   status:
-    description: 'status of workflow'    
+    description: 'status of workflow'  
+  event:
+    description: 'event that trigger de wf'
 outputs:
   run_id: 
     description: Run id
@@ -26,7 +28,8 @@ runs:
               repo,
               workflow_id: workflow,
               per_page: 1,
-              status: '${{ inputs.status }}'
+              status: '${{ inputs.status }}',
+              event:  '${{ inputs.event }}'
             });
             const run = workflows.data.workflow_runs[0];                
             return run.id;
