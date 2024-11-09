@@ -23,25 +23,14 @@ runs:
             const workflow = '${{ inputs.workflow-file }}';
             const owner = context.repo.owner;
             const repo = context.repo.repo;
-            const workflows =  null;
-            if ('${{ inputs.event }}'.trim().length>0) {
-              workflows= await github.rest.actions.listWorkflowRuns({
+            const workflows = await github.rest.actions.listWorkflowRuns({
                   owner,
                   repo,
                   workflow_id: workflow,
                   per_page: 1,
                   status: '${{ inputs.status }}',
                   event:  '${{ inputs.event }}'
-                });
-            } else {
-            workflows= await github.rest.actions.listWorkflowRuns({
-                  owner,
-                  repo,
-                  workflow_id: workflow,
-                  per_page: 1,
-                  status: '${{ inputs.status }}'                  
-                });
-            }
+                });          
             const run = workflows.data.workflow_runs[0];                
             return run.id;
           result-encoding: string
