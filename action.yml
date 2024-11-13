@@ -8,6 +8,8 @@ inputs:
     description: 'status of workflow'  
   event:
     description: 'event that trigger de wf'
+  branch:
+    branch: 'event that trigger de wf'
 outputs:
   run_id: 
     description: Run id
@@ -29,7 +31,8 @@ runs:
                   workflow_id: workflow,
                   per_page: 1,
                   status: '${{ inputs.status }}',
-                  event:  '${{ inputs.event }}'
+                  event:  '${{ inputs.event }}',
+                  branch:  '${{ inputs.branch }}'
                 });          
             const run = workflows.data.workflow_runs[0];                
             return run.id;
